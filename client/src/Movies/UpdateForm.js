@@ -9,14 +9,15 @@ const UpdateForm = props => {
         title: "",
         director: "",
         metascore: "",
-        stars: [""]
+        stars: []
     });
 
     const handleChanges = e => {
         e.persist();
+        let value = e.target.value;
         setMovie({
             ...movie,
-            [e.target.name]: e.target.value
+            [e.target.name]: value
         })
 
     }
@@ -34,7 +35,10 @@ const UpdateForm = props => {
 
     useEffect(() => {
         const movieToUpdate = props.movieList.find(movie => `${movie.id}` === params.id);
-        movieToUpdate && setMovie(movieToUpdate);
+        if(movieToUpdate) {
+            console.log("movieToUpdate", movieToUpdate);
+            setMovie(movieToUpdate);
+        }
     }, [props.movies])
 
     return (
