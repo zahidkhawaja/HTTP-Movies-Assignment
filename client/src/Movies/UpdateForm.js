@@ -14,13 +14,9 @@ const UpdateForm = props => {
 
     const handleChanges = e => {
         e.persist();
-        let value = e.target.value;
-        if (e.target.name === "stars") {
-            console.log(value);
-        }
         setMovie({
             ...movie,
-            [e.target.name]: value
+            [e.target.name]: e.target.value
         })
 
     }
@@ -30,7 +26,7 @@ const UpdateForm = props => {
         axios.put(`http://localhost:5000/api/movies/${params.id}`, movie)
         .then(res => {
             console.log("Put", res);
-            props.setMovieList(res.data);
+            props.setUpdated(!props.updated);
             history.push("/");
         })
         .catch(err => console.log(err));

@@ -10,6 +10,7 @@ const App = () => {
   const [savedList, setSavedList] = useState([]);
   const [movieList, setMovieList] = useState([]);
   const [deleted, setDeleted] = useState(false);
+  const [updated, setUpdated] = useState(false);
 
   const getMovieList = () => {
     axios
@@ -24,7 +25,7 @@ const App = () => {
 
   useEffect(() => {
     getMovieList();
-  }, [deleted]);
+  }, [deleted, updated]);
 
   return (
     <>
@@ -39,7 +40,7 @@ const App = () => {
       </Route>
 
       <Route path = "/update-movie/:id">
-        <UpdateForm movieList = {movieList} setMovieList = {setMovieList} />
+        <UpdateForm movieList = {movieList} setMovieList = {setMovieList} setUpdated = {setUpdated} updated = {updated} />
       </Route>
     </>
   );
