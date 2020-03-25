@@ -9,14 +9,14 @@ const UpdateForm = props => {
         title: "",
         director: "",
         metascore: "",
-        stars: []
+        stars: [""]
     });
 
     const handleChanges = e => {
         e.persist();
         let value = e.target.value;
         if (e.target.name === "stars") {
-            value = value.split("");
+            console.log(value);
         }
         setMovie({
             ...movie,
@@ -29,9 +29,9 @@ const UpdateForm = props => {
         e.preventDefault();
         axios.put(`http://localhost:5000/api/movies/${params.id}`, movie)
         .then(res => {
-            console.log(res);
+            console.log("Put", res);
             props.setMovieList(res.data);
-            history.push(`/movies/${params.id}`);
+            history.push("/");
         })
         .catch(err => console.log(err));
     }
@@ -39,7 +39,7 @@ const UpdateForm = props => {
     useEffect(() => {
         const movieToUpdate = props.movieList.find(movie => `${movie.id}` === params.id);
         movieToUpdate && setMovie(movieToUpdate);
-    }, [props.movies, params.id])
+    }, [props.movies])
 
     return (
         <div className = "updateform">
